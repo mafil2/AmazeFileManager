@@ -103,6 +103,10 @@ public class SmbUtil {
     return buffer.toString();
   }
 
+  /**
+   * Use AmazeFile(path) instead
+   */
+  @Deprecated
   public static SmbFile create(String path) throws MalformedURLException {
     Uri uri = Uri.parse(path);
     boolean disableIpcSigningCheck =
@@ -123,7 +127,10 @@ public class SmbUtil {
    * @param userInfo authentication string, must be already URL decoded. {@link Uri} shall do this
    *     for you already
    * @return {@link NtlmPasswordAuthenticator} instance
+   *
+   * Use AmazeFile(path) instead
    */
+  @Deprecated
   protected static @NonNull NtlmPasswordAuthenticator createFrom(@Nullable String userInfo) {
     if (!TextUtils.isEmpty(userInfo)) {
       String dom = null;

@@ -21,6 +21,7 @@
 package com.amaze.filemanager.asynchronous.asynctasks;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,6 +36,7 @@ import com.amaze.filemanager.database.SortHandler;
 import com.amaze.filemanager.database.UtilsHandler;
 import com.amaze.filemanager.file_operations.exceptions.CloudPluginException;
 import com.amaze.filemanager.file_operations.filesystem.OpenMode;
+import com.amaze.filemanager.file_operations.filesystem.filetypes.AmazeFile;
 import com.amaze.filemanager.filesystem.HybridFile;
 import com.amaze.filemanager.filesystem.HybridFileParcelable;
 import com.amaze.filemanager.filesystem.RootHelper;
@@ -133,7 +135,7 @@ public class LoadFilesListTask
           hFile.setPath(hFile.getPath() + "/");
         }
         try {
-          SmbFile[] smbFile = hFile.getSmbFile(5000).listFiles();
+          AmazeFile[] smbFile = new AmazeFile(hFile.getPath()).listFiles();
           list = mainFragment.addToSmb(smbFile, path, showHiddenFiles);
           openmode = OpenMode.SMB;
         } catch (SmbAuthException e) {
@@ -142,7 +144,7 @@ public class LoadFilesListTask
           }
           e.printStackTrace();
           return null;
-        } catch (SmbException | NullPointerException e) {
+        } catch (NullPointerException | IOException e) {
           Log.w(getClass().getSimpleName(), "Failed to load smb files for path: " + path, e);
           mainFragment.reauthenticateSmb();
           return null;
