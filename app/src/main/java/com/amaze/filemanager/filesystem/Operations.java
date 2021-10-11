@@ -27,8 +27,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
@@ -58,8 +56,6 @@ import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
 import androidx.documentfile.provider.DocumentFile;
 
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFile;
 import net.schmizz.sshj.sftp.SFTPClient;
 
 public class Operations {

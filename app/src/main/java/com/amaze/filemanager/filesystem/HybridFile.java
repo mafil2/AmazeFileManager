@@ -55,7 +55,6 @@ import com.amaze.filemanager.ui.fragments.preference_fragments.PreferencesConsta
 import com.amaze.filemanager.utils.DataUtils;
 import com.amaze.filemanager.utils.OTGUtil;
 import com.amaze.filemanager.utils.OnFileFound;
-import com.amaze.filemanager.utils.SmbUtil;
 import com.amaze.filemanager.utils.Utils;
 import com.cloudrail.si.interfaces.CloudStorage;
 import com.cloudrail.si.types.SpaceAllocation;
@@ -71,12 +70,8 @@ import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.preference.PreferenceManager;
 
-import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
-import kotlin.NotImplementedError;
-
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.common.Buffer;
 import net.schmizz.sshj.sftp.FileMode;
@@ -88,7 +83,7 @@ import net.schmizz.sshj.sftp.SFTPException;
 /**
  * Hybrid file for handeling all types of files
  *
- * This is deprecated, please use AmazeFile instead
+ * <p>This is deprecated, please use AmazeFile instead
  */
 @Deprecated
 public class HybridFile {
@@ -870,16 +865,16 @@ public class HybridFile {
         break;
       case SMB:
         ArrayList<HybridFileParcelable> result = new ArrayList<>();
-          for (AmazeFile smbFile1 : new AmazeFile(getPath()).listFiles()) {
-            try {
-              HybridFileParcelable baseFile = new HybridFileParcelable(create(smbFile1.getPath()));
-              result.add(baseFile);
-            } catch (SmbException | MalformedURLException e) {
-              Log.e(TAG, "Error getting an SMB file", e);
-              return null;
-            }
+        for (AmazeFile smbFile1 : new AmazeFile(getPath()).listFiles()) {
+          try {
+            HybridFileParcelable baseFile = new HybridFileParcelable(create(smbFile1.getPath()));
+            result.add(baseFile);
+          } catch (SmbException | MalformedURLException e) {
+            Log.e(TAG, "Error getting an SMB file", e);
+            return null;
           }
-          return result;
+        }
+        return result;
       case OTG:
         arrayList = OTGUtil.getDocumentFilesList(path, context);
         break;

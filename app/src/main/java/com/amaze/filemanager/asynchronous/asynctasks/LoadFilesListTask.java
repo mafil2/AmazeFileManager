@@ -65,8 +65,6 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 
 import jcifs.smb.SmbAuthException;
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFile;
 
 public class LoadFilesListTask
     extends AsyncTask<Void, Void, Pair<OpenMode, ArrayList<LayoutElementParcelable>>> {

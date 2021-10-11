@@ -141,9 +141,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFile;
-
 public class MainFragment extends Fragment
     implements BottomBarButtonPath,
         ViewTreeObserver.OnGlobalLayoutListener,
@@ -1574,7 +1571,8 @@ public class MainFragment extends Fragment
   }
 
   public ArrayList<LayoutElementParcelable> addToSmb(
-      @NonNull AmazeFile[] mFile, @NonNull String path, boolean showHiddenFiles) throws IOException {
+      @NonNull AmazeFile[] mFile, @NonNull String path, boolean showHiddenFiles)
+      throws IOException {
     ArrayList<LayoutElementParcelable> smbFileList = new ArrayList<>();
     String extraParams = Uri.parse(path).getQuery();
 
@@ -1582,7 +1580,7 @@ public class MainFragment extends Fragment
       mainFragmentViewModel.getSearchHelper().clear();
     }
     for (AmazeFile aMFile : mFile) {
-      if(!aMFile.isDirectory() && !aMFile.isFile()) {
+      if (!aMFile.isDirectory() && !aMFile.isFile()) {
         continue;
       }
       if ((DataUtils.getInstance().isFileHidden(aMFile.getPath()) || aMFile.isHidden())
